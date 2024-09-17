@@ -1,0 +1,67 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Player {
+public:
+    int scores[3];   // Almacena los 3 lanzamientos
+    string name;     // Almacena el nombre del jugador
+
+    // Constructor para inicializar el nombre del jugador
+    Player(string _name) {
+        name = _name;
+    }
+
+    // Método para ingresar los puntajes de los lanzamientos
+    void registerThrows() {
+        for (int i = 0; i < 3; i++) {
+            cout << "Ingresa el puntaje del lanzamiento " << i + 1 << " para " << name << ": ";
+            cin >> scores[i]; // Guarda los puntajes ingresados
+        }
+    }
+
+    // Método para sumar los 3 lanzamientos y obtener el puntaje total
+    int getTotalScore() {
+        int total = 0;
+        for (int i = 0; i < 3; i++) {
+            total += scores[i]; // Sumar los puntajes
+        }
+        return total;
+    }
+};
+
+int main() {
+    Player players[5] = {
+        Player("Jugador 1"),
+        Player("Jugador 2"),
+        Player("Jugador 3"),
+        Player("Jugador 4"),
+        Player("Jugador 5")
+    };
+
+    // Registrar los lanzamientos de cada jugador
+    for (int i = 0; i < 5; i++) {
+        players[i].registerThrows();
+    }
+
+    // Mostrar los puntajes y determinar el ganador
+    int highestScore = 0;
+    string winner;
+
+    for (int i = 0; i < 5; i++) {
+        int total = players[i].getTotalScore();
+        cout << players[i].name << " tiene un puntaje total de " << total << " puntos.\n";
+
+        // Verificar si el jugador tiene el mayor puntaje
+        if (total > highestScore) {
+            highestScore = total;
+            winner = players[i].name;
+        }
+    }
+
+    // Mostrar el jugador ganador
+    cout << "\nEl ganador es " << winner << " con " << highestScore << " puntos.\n";
+
+    return 0;
+}
